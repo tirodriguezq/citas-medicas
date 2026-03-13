@@ -8,6 +8,9 @@ public class Cita {
     private String fecha;
     private String estado;
 
+    public Cita() {
+    }
+
     public Cita(Long id, String nombrePaciente, String doctor, String fecha, String estado) {
         this.id = id;
         this.nombrePaciente = nombrePaciente;
@@ -34,5 +37,25 @@ public class Cita {
 
     public String getEstado() {
         return estado;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
