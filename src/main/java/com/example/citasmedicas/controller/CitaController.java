@@ -1,13 +1,11 @@
 package com.example.citasmedicas.controller;
 
-import com.example.citasmedicas.model.Cita;
 import com.example.citasmedicas.service.CitaService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/citas")
+@Controller
 public class CitaController {
 
     private final CitaService citaService;
@@ -16,13 +14,9 @@ public class CitaController {
         this.citaService = citaService;
     }
 
-    @GetMapping
-    public List<Cita> listarCitas() {
-        return citaService.listarCitas();
-    }
-
-    @PostMapping
-    public void crearCita(@RequestBody Cita cita) {
-        citaService.crearCita(cita);
+    @GetMapping("/citas")
+    public String listarCitas(Model model) {
+        model.addAttribute("citas", citaService.listarCitas());
+        return "citas";
     }
 }
