@@ -15,6 +15,7 @@
     <th>Doctor</th>
     <th>Fecha</th>
     <th>Estado</th>
+    <th>Acción</th>
   </tr>
   </thead>
   <tbody>
@@ -24,13 +25,14 @@
     <td th:text="${cita.doctor}"></td>
     <td th:text="${cita.fecha}"></td>
     <td th:text="${cita.estado}"></td>
+    <td>
+      <a th:href="@{/cambiar-estado/{id}(id=${cita.id})}">Marcar como Atendida</a>
+    </td>
   </tr>
   </tbody>
 </table>
 
 <br>
 <a href="/nueva-cita">Registrar nueva cita</a>
-</body>
-</html>
 </body>
 </html>

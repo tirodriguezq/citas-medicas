@@ -22,4 +22,12 @@ public class CitaService {
     public List<Cita> listarCitas() {
         return citaRepository.obtenerTodas();
     }
+
+    public void cambiarEstado(Long id) {
+        Cita cita = citaRepository.buscarPorId(id);
+
+        if (cita != null && cita.getEstado().equals("Programada")) {
+            citaRepository.actualizarEstado(id, "Atendida");
+        }
+    }
 }
