@@ -37,9 +37,11 @@ public class CitaRepository {
     }
 
     public void actualizarEstado(Long id, String nuevoEstado) {
-        Cita cita = buscarPorId(id);
-        if (cita != null) {
-            cita.setEstado(nuevoEstado);
+        for (Cita cita : citas) {
+            if (cita.getId().equals(id)) {
+                cita.setEstado(nuevoEstado);
+                break;
+            }
         }
     }
 }

@@ -50,4 +50,9 @@ public class CitaController {
         citaService.cambiarEstado(id);
         return "redirect:/citas";
     }
+    @GetMapping("/cancelar-cita/{id}")
+    public String cancelarCita(@PathVariable Long id) {
+        citaService.cancelarCita(id);
+        return "redirect:/citas";
+    }
 }

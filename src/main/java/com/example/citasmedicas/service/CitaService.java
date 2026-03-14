@@ -49,4 +49,11 @@ public class CitaService {
             throw new IllegalArgumentException("El estado de la cita es obligatorio.");
         }
     }
+    public void cancelarCita(Long id) {
+        Cita cita = citaRepository.buscarPorId(id);
+
+        if (cita != null && cita.getEstado().equals("Programada")) {
+            citaRepository.actualizarEstado(id, "Cancelada");
+        }
+    }
 }
