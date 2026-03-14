@@ -14,7 +14,13 @@
     <input type="text" name="nombrePaciente"><br><br>
 
     <label>Doctor:</label><br>
-    <input type="text" name="doctor"><br><br>
+    <select name="doctor">
+        <option value="">Seleccione un doctor</option>
+        <option th:each="doctor : ${doctores}"
+                th:value="${doctor.nombre}"
+                th:text="${doctor.nombre + ' - ' + doctor.especialidad}">
+        </option>
+    </select><br><br>
 
     <label>Fecha:</label><br>
     <input type="date" name="fecha"><br><br>

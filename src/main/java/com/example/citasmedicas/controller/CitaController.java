@@ -2,6 +2,7 @@ package com.example.citasmedicas.controller;
 
 import com.example.citasmedicas.model.Cita;
 import com.example.citasmedicas.service.CitaService;
+import com.example.citasmedicas.service.DoctorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CitaController {
 
     private final CitaService citaService;
+    private final DoctorService doctorService;
 
-    public CitaController(CitaService citaService) {
+    public CitaController(CitaService citaService, DoctorService doctorService) {
         this.citaService = citaService;
+        this.doctorService = doctorService;
     }
 
     @GetMapping("/citas")
@@ -25,7 +28,8 @@ public class CitaController {
     }
 
     @GetMapping("/nueva-cita")
-    public String mostrarFormularioNuevaCita() {
+    public String mostrarFormularioNuevaCita(Model model) {
+        model.addAttribute("doctores", doctorService.listarDoctores());
         return "nueva-cita";
     }
 
@@ -36,6 +40,7 @@ public class CitaController {
             return "redirect:/citas";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("doctores", doctorService.listarDoctores());
             return "nueva-cita";
         }
     }
