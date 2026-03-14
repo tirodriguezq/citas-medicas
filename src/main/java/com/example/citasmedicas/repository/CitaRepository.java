@@ -9,22 +9,14 @@ import java.util.List;
 @Repository
 public class CitaRepository {
 
-    private List<Cita> citas = new ArrayList<>();
-    private Long contadorId = 1L;
+    private final List<Cita> citas = new ArrayList<>();
 
-    public void guardar(Cita cita) {
-        Cita nuevaCita = new Cita(
-                contadorId++,
-                cita.getNombrePaciente(),
-                cita.getDoctor(),
-                cita.getFecha(),
-                cita.getEstado()
-        );
-        citas.add(nuevaCita);
+    public List<Cita> listarCitas() {
+        return citas;
     }
 
-    public List<Cita> obtenerTodas() {
-        return citas;
+    public void guardarCita(Cita cita) {
+        citas.add(cita);
     }
 
     public Cita buscarPorId(Long id) {
@@ -37,11 +29,9 @@ public class CitaRepository {
     }
 
     public void actualizarEstado(Long id, String nuevoEstado) {
-        for (Cita cita : citas) {
-            if (cita.getId().equals(id)) {
-                cita.setEstado(nuevoEstado);
-                break;
-            }
+        Cita cita = buscarPorId(id);
+        if (cita != null) {
+            cita.setEstado(nuevoEstado);
         }
     }
 }

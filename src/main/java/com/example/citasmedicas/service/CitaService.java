@@ -4,6 +4,7 @@ import com.example.citasmedicas.model.Cita;
 import com.example.citasmedicas.repository.CitaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,40 +16,45 @@ public class CitaService {
         this.citaRepository = citaRepository;
     }
 
-    public void crearCita(Cita cita) {
-        validarCita(cita);
-        citaRepository.guardar(cita);
+    public List<Cita> listarCitas() {
+        return citaRepository.listarCitas();
     }
 
-    public List<Cita> listarCitas() {
-        return citaRepository.obtenerTodas();
+    public void crearCita(Cita cita) {
+
+        if (cita.getNombrePaciente() == null || cita.getNombrePaciente().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del paciente es obligatorio");
+        }
+
+        if (cita.getDoctor() == null || cita.getDoctor().isEmpty()) {
+            throw new IllegalArgumentException("Debe seleccionar un doctor");
+        }
+
+        if (cita.getFecha() == null) {
+            throw new IllegalArgumentException("La fecha es obligatoria");
+        }
+
+        if (cita.getFecha().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("No se pueden registrar citas en fechas pasadas");
+        }
+
+        for (Cita c : citaRepository.listarCitas()) {
+            if (c.getDoctor().equals(cita.getDoctor()) &&
+                    c.getFecha().equals(cita.getFecha()) &&
+                    c.getEstado().equals("Programada")) {
+
+                throw new IllegalArgumentException("El doctor ya tiene una cita programada ese día");
+            }
+        }
+
+        cita.setEstado("Programada");
+        citaRepository.guardarCita(cita);
     }
 
     public void cambiarEstado(Long id) {
-        Cita cita = citaRepository.buscarPorId(id);
-
-        if (cita != null && cita.getEstado().equals("Programada")) {
-            citaRepository.actualizarEstado(id, "Atendida");
-        }
+        citaRepository.actualizarEstado(id, "Atendida");
     }
 
-    private void validarCita(Cita cita) {
-        if (cita.getNombrePaciente() == null || cita.getNombrePaciente().trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre del paciente es obligatorio.");
-        }
-
-        if (cita.getDoctor() == null || cita.getDoctor().trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre del doctor es obligatorio.");
-        }
-
-        if (cita.getFecha() == null || cita.getFecha().trim().isEmpty()) {
-            throw new IllegalArgumentException("La fecha de la cita es obligatoria.");
-        }
-
-        if (cita.getEstado() == null || cita.getEstado().trim().isEmpty()) {
-            throw new IllegalArgumentException("El estado de la cita es obligatorio.");
-        }
-    }
     public void cancelarCita(Long id) {
         Cita cita = citaRepository.buscarPorId(id);
 
