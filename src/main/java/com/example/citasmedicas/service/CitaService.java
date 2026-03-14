@@ -16,50 +16,59 @@ public class CitaService {
         this.citaRepository = citaRepository;
     }
 
-    public List<Cita> listarCitas() {
-        return citaRepository.listarCitas();
+    public void crearCita(Cita cita) {
+        validarCita(cita);
+        cita.setEstado("Programada");
+        citaRepository.guardar(cita);
     }
 
-    public void crearCita(Cita cita) {
-
-        if (cita.getNombrePaciente() == null || cita.getNombrePaciente().isEmpty()) {
-            throw new IllegalArgumentException("El nombre del paciente es obligatorio");
-        }
-
-        if (cita.getDoctor() == null || cita.getDoctor().isEmpty()) {
-            throw new IllegalArgumentException("Debe seleccionar un doctor");
-        }
-
-        if (cita.getFecha() == null) {
-            throw new IllegalArgumentException("La fecha es obligatoria");
-        }
-
-        if (cita.getFecha().isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("No se pueden registrar citas en fechas pasadas");
-        }
-
-        for (Cita c : citaRepository.listarCitas()) {
-            if (c.getDoctor().equals(cita.getDoctor()) &&
-                    c.getFecha().equals(cita.getFecha()) &&
-                    c.getEstado().equals("Programada")) {
-
-                throw new IllegalArgumentException("El doctor ya tiene una cita programada ese día");
-            }
-        }
-
-        cita.setEstado("Programada");
-        citaRepository.guardarCita(cita);
+    public List<Cita> listarCitas() {
+        return citaRepository.obtenerTodas();
     }
 
     public void cambiarEstado(Long id) {
-        citaRepository.actualizarEstado(id, "Atendida");
+        Cita cita = citaRepository.buscarPorId(id);
+
+        if (cita != null && "Programada".equals(cita.getEstado())) {
+            citaRepository.actualizarEstado(id, "Atendida");
+        }
     }
 
     public void cancelarCita(Long id) {
         Cita cita = citaRepository.buscarPorId(id);
 
-        if (cita != null && cita.getEstado().equals("Programada")) {
+        if (cita != null && "Programada".equals(cita.getEstado())) {
             citaRepository.actualizarEstado(id, "Cancelada");
+        }
+    }
+
+    public List<Cita> agendaDelDia(LocalDate fecha) {
+        return citaRepository.obtenerPorFecha(fecha);
+    }
+
+    private void validarCita(Cita cita) {
+        if (cita.getNombrePaciente() == null || cita.getNombrePaciente().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del paciente es obligatorio.");
+        }
+
+        if (cita.getDoctor() == null || cita.getDoctor().trim().isEmpty()) {
+            throw new IllegalArgumentException("Debe seleccionar un doctor.");
+        }
+
+        if (cita.getFecha() == null) {
+            throw new IllegalArgumentException("La fecha de la cita es obligatoria.");
+        }
+
+        if (cita.getFecha().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("No se permiten fechas anteriores al día actual.");
+        }
+
+        for (Cita existente : citaRepository.obtenerTodas()) {
+            if (existente.getDoctor().equals(cita.getDoctor())
+                    && existente.getFecha().equals(cita.getFecha())
+                    && "Programada".equals(existente.getEstado())) {
+                throw new IllegalArgumentException("El doctor ya tiene una cita programada en esa fecha.");
+            }
         }
     }
 }

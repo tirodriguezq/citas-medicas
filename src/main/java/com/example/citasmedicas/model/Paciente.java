@@ -6,6 +6,9 @@ public class Paciente {
     private String nombre;
     private String telefono;
 
+    public Paciente() {
+    }
+
     public Paciente(Long id, String nombre, String telefono) {
         this.id = id;
         this.nombre = nombre;
@@ -22,5 +25,17 @@ public class Paciente {
 
     public String getTelefono() {
         return telefono;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }

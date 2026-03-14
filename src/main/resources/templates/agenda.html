@@ -2,15 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Lista de Citas</title>
+  <title>Agenda del Día</title>
 </head>
 <body>
 
-<h1>Lista de Citas Médicas</h1>
+<h1>Agenda Diaria de Citas</h1>
 
-<a href="/nueva-cita">Registrar nueva cita</a>
+<form action="/agenda" method="get">
+  <label>Seleccione la fecha:</label>
+  <input type="date" name="fecha" th:value="${fechaSeleccionada}">
+  <button type="submit">Buscar</button>
+</form>
+
 <br>
-<a href="/agenda">Ver agenda del día</a>
+<a href="/citas">Volver a la lista de citas</a>
 
 <br><br>
 
@@ -22,7 +27,6 @@
     <th>Doctor</th>
     <th>Fecha</th>
     <th>Estado</th>
-    <th>Acciones</th>
   </tr>
   </thead>
 
@@ -33,19 +37,6 @@
     <td th:text="${cita.doctor}"></td>
     <td th:text="${cita.fecha}"></td>
     <td th:text="${cita.estado}"></td>
-    <td>
-      <a th:if="${cita.estado == 'Programada'}"
-         th:href="@{/cambiar-estado/{id}(id=${cita.id})}">
-        Atender
-      </a>
-
-      <span th:if="${cita.estado == 'Programada'}"> | </span>
-
-      <a th:if="${cita.estado == 'Programada'}"
-         th:href="@{/cancelar-cita/{id}(id=${cita.id})}">
-        Cancelar
-      </a>
-    </td>
   </tr>
   </tbody>
 </table>

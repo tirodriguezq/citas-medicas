@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class DoctorRepository {
 
-    private List<Doctor> doctores = new ArrayList<>();
+    private final List<Doctor> doctores = new ArrayList<>();
 
     public DoctorRepository() {
         doctores.add(new Doctor(1L, "Dr. Ramírez", "Medicina General"));

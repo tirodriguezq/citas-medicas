@@ -3,6 +3,7 @@ package com.example.citasmedicas.repository;
 import com.example.citasmedicas.model.Cita;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +11,15 @@ import java.util.List;
 public class CitaRepository {
 
     private final List<Cita> citas = new ArrayList<>();
+    private Long contadorId = 1L;
 
-    public List<Cita> listarCitas() {
-        return citas;
+    public void guardar(Cita cita) {
+        cita.setId(contadorId++);
+        citas.add(cita);
     }
 
-    public void guardarCita(Cita cita) {
-        citas.add(cita);
+    public List<Cita> obtenerTodas() {
+        return citas;
     }
 
     public Cita buscarPorId(Long id) {
@@ -33,5 +36,17 @@ public class CitaRepository {
         if (cita != null) {
             cita.setEstado(nuevoEstado);
         }
+    }
+
+    public List<Cita> obtenerPorFecha(LocalDate fecha) {
+        List<Cita> resultado = new ArrayList<>();
+
+        for (Cita cita : citas) {
+            if (cita.getFecha().equals(fecha)) {
+                resultado.add(cita);
+            }
+        }
+
+        return resultado;
     }
 }

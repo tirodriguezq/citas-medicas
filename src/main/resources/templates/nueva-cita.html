@@ -5,16 +5,17 @@
     <title>Nueva Cita</title>
 </head>
 <body>
+
 <h1>Registrar Nueva Cita</h1>
 
 <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 
-<form action="/guardar-cita" method="post">
+<form action="/guardar-cita" method="post" th:object="${cita}">
     <label>Nombre del paciente:</label><br>
-    <input type="text" name="nombrePaciente"><br><br>
+    <input type="text" th:field="*{nombrePaciente}"><br><br>
 
     <label>Doctor:</label><br>
-    <select name="doctor">
+    <select th:field="*{doctor}">
         <option value="">Seleccione un doctor</option>
         <option th:each="doctor : ${doctores}"
                 th:value="${doctor.nombre}"
@@ -23,20 +24,13 @@
     </select><br><br>
 
     <label>Fecha:</label><br>
-    <input type="date" name="fecha"><br><br>
-
-    <label>Estado:</label><br>
-    <select name="estado">
-        <option value="">Seleccione un estado</option>
-        <option value="Programada">Programada</option>
-        <option value="Atendida">Atendida</option>
-        <option value="Cancelada">Cancelada</option>
-    </select><br><br>
+    <input type="date" th:field="*{fecha}"><br><br>
 
     <button type="submit">Guardar Cita</button>
 </form>
 
 <br>
 <a href="/citas">Volver a la lista de citas</a>
+
 </body>
 </html>
