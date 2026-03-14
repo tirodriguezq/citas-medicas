@@ -30,9 +30,14 @@ public class CitaController {
     }
 
     @PostMapping("/guardar-cita")
-    public String guardarCita(@ModelAttribute Cita cita) {
-        citaService.crearCita(cita);
-        return "redirect:/citas";
+    public String guardarCita(@ModelAttribute Cita cita, Model model) {
+        try {
+            citaService.crearCita(cita);
+            return "redirect:/citas";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "nueva-cita";
+        }
     }
 
     @GetMapping("/cambiar-estado/{id}")

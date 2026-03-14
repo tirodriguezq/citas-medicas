@@ -16,6 +16,7 @@ public class CitaService {
     }
 
     public void crearCita(Cita cita) {
+        validarCita(cita);
         citaRepository.guardar(cita);
     }
 
@@ -28,6 +29,24 @@ public class CitaService {
 
         if (cita != null && cita.getEstado().equals("Programada")) {
             citaRepository.actualizarEstado(id, "Atendida");
+        }
+    }
+
+    private void validarCita(Cita cita) {
+        if (cita.getNombrePaciente() == null || cita.getNombrePaciente().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del paciente es obligatorio.");
+        }
+
+        if (cita.getDoctor() == null || cita.getDoctor().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del doctor es obligatorio.");
+        }
+
+        if (cita.getFecha() == null || cita.getFecha().trim().isEmpty()) {
+            throw new IllegalArgumentException("La fecha de la cita es obligatoria.");
+        }
+
+        if (cita.getEstado() == null || cita.getEstado().trim().isEmpty()) {
+            throw new IllegalArgumentException("El estado de la cita es obligatorio.");
         }
     }
 }

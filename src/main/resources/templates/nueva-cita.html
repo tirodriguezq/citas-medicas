@@ -7,18 +7,21 @@
 <body>
 <h1>Registrar Nueva Cita</h1>
 
+<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
 <form action="/guardar-cita" method="post">
     <label>Nombre del paciente:</label><br>
-    <input type="text" name="nombrePaciente" required><br><br>
+    <input type="text" name="nombrePaciente"><br><br>
 
     <label>Doctor:</label><br>
-    <input type="text" name="doctor" required><br><br>
+    <input type="text" name="doctor"><br><br>
 
     <label>Fecha:</label><br>
-    <input type="date" name="fecha" required><br><br>
+    <input type="date" name="fecha"><br><br>
 
     <label>Estado:</label><br>
     <select name="estado">
+        <option value="">Seleccione un estado</option>
         <option value="Programada">Programada</option>
         <option value="Atendida">Atendida</option>
         <option value="Cancelada">Cancelada</option>
