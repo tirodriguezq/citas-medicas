@@ -46,6 +46,11 @@ public class CitaService {
         return citaRepository.obtenerPorFecha(fecha);
     }
 
+    public List<Cita> agendaDeLaSemana(LocalDate fechaInicio) {
+        LocalDate fechaFin = fechaInicio.plusDays(6);
+        return citaRepository.obtenerPorRangoFechas(fechaInicio, fechaFin);
+    }
+
     private void validarCita(Cita cita) {
         if (cita.getNombrePaciente() == null || cita.getNombrePaciente().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del paciente es obligatorio.");

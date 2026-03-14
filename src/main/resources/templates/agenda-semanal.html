@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda Semanal</title>
+</head>
+<body>
+
+<h1>Agenda Semanal de Citas</h1>
+
+<form action="/agenda-semanal" method="get">
+    <label>Seleccione la fecha de inicio:</label>
+    <input type="date" name="fechaInicio" th:value="${fechaInicio}">
+    <button type="submit">Buscar semana</button>
+</form>
+
+<p>
+    Semana consultada:
+    <span th:text="${fechaInicio}"></span>
+    -
+    <span th:text="${fechaFin}"></span>
+</p>
+
+<a href="/citas">Volver a la lista de citas</a>
+<br>
+<a href="/agenda">Ver agenda diaria</a>
+
+<br><br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Paciente</th>
+        <th>Doctor</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="cita : ${citas}">
+        <td th:text="${cita.id}"></td>
+        <td th:text="${cita.nombrePaciente}"></td>
+        <td th:text="${cita.doctor}"></td>
+        <td th:text="${cita.fecha}"></td>
+        <td th:text="${cita.estado}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

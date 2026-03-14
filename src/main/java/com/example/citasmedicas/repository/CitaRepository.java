@@ -49,4 +49,17 @@ public class CitaRepository {
 
         return resultado;
     }
+
+    public List<Cita> obtenerPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+        List<Cita> resultado = new ArrayList<>();
+
+        for (Cita cita : citas) {
+            if ((cita.getFecha().isEqual(fechaInicio) || cita.getFecha().isAfter(fechaInicio))
+                    && (cita.getFecha().isEqual(fechaFin) || cita.getFecha().isBefore(fechaFin))) {
+                resultado.add(cita);
+            }
+        }
+
+        return resultado;
+    }
 }

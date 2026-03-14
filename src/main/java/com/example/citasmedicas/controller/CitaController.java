@@ -76,4 +76,23 @@ public class CitaController {
         model.addAttribute("citas", citaService.agendaDelDia(fechaConsulta));
         return "agenda";
     }
+
+    @GetMapping("/agenda-semanal")
+    public String verAgendaSemanal(@RequestParam(required = false) String fechaInicio, Model model) {
+        LocalDate inicioSemana;
+
+        if (fechaInicio == null || fechaInicio.isBlank()) {
+            inicioSemana = LocalDate.now();
+        } else {
+            inicioSemana = LocalDate.parse(fechaInicio);
+        }
+
+        LocalDate finSemana = inicioSemana.plusDays(6);
+
+        model.addAttribute("fechaInicio", inicioSemana);
+        model.addAttribute("fechaFin", finSemana);
+        model.addAttribute("citas", citaService.agendaDeLaSemana(inicioSemana));
+
+        return "agenda-semanal";
+    }
 }
