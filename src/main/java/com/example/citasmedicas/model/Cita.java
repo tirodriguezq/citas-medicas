@@ -1,22 +1,33 @@
 package com.example.citasmedicas.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
 import java.time.LocalDate;
 
+@Table("citas")
 public class Cita {
 
+    @Id
     private Long id;
-    private String nombrePaciente;
-    private String doctor;
+
+    @Column("paciente_id")
+    private Long pacienteId;
+
+    @Column("doctor_id")
+    private Long doctorId;
+
     private LocalDate fecha;
     private String estado;
 
     public Cita() {
     }
 
-    public Cita(Long id, String nombrePaciente, String doctor, LocalDate fecha, String estado) {
+    public Cita(Long id, Long pacienteId, Long doctorId, LocalDate fecha, String estado) {
         this.id = id;
-        this.nombrePaciente = nombrePaciente;
-        this.doctor = doctor;
+        this.pacienteId = pacienteId;
+        this.doctorId = doctorId;
         this.fecha = fecha;
         this.estado = estado;
     }
@@ -25,12 +36,12 @@ public class Cita {
         return id;
     }
 
-    public String getNombrePaciente() {
-        return nombrePaciente;
+    public Long getPacienteId() {
+        return pacienteId;
     }
 
-    public String getDoctor() {
-        return doctor;
+    public Long getDoctorId() {
+        return doctorId;
     }
 
     public LocalDate getFecha() {
@@ -45,12 +56,12 @@ public class Cita {
         this.id = id;
     }
 
-    public void setNombrePaciente(String nombrePaciente) {
-        this.nombrePaciente = nombrePaciente;
+    public void setPacienteId(Long pacienteId) {
+        this.pacienteId = pacienteId;
     }
 
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
     public void setFecha(LocalDate fecha) {

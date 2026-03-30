@@ -1,18 +1,23 @@
 package com.example.citasmedicas.model;
 
-public class Doctor {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("pacientes")
+public class Paciente {
+
+    @Id
     private Long id;
     private String nombre;
-    private String especialidad;
+    private String telefono;
 
-    public Doctor() {
+    public Paciente() {
     }
 
-    public Doctor(Long id, String nombre, String especialidad) {
+    public Paciente(Long id, String nombre, String telefono) {
         this.id = id;
         this.nombre = nombre;
-        this.especialidad = especialidad;
+        this.telefono = telefono;
     }
 
     public Long getId() {
@@ -23,8 +28,8 @@ public class Doctor {
         return nombre;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
+    public String getTelefono() {
+        return telefono;
     }
 
     public void setId(Long id) {
@@ -35,7 +40,7 @@ public class Doctor {
         this.nombre = nombre;
     }
 
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }
