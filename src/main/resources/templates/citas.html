@@ -31,19 +31,19 @@
   <tbody>
   <tr th:each="cita : ${citas}">
     <td th:text="${cita.id}"></td>
-    <td th:text="${cita.nombrePaciente}"></td>
-    <td th:text="${cita.doctor}"></td>
+    <td th:text="${cita.pacienteId}"></td>
+    <td th:text="${cita.doctorId}"></td>
     <td th:text="${cita.fecha}"></td>
     <td th:text="${cita.estado}"></td>
     <td>
-      <a th:if="${cita.estado == 'Programada'}"
+      <a th:if="${cita.estado == 'PROGRAMADA'}"
          th:href="@{/cambiar-estado/{id}(id=${cita.id})}">
         Atender
       </a>
 
-      <span th:if="${cita.estado == 'Programada'}"> | </span>
+      <span th:if="${cita.estado == 'PROGRAMADA'}"> | </span>
 
-      <a th:if="${cita.estado == 'Programada'}"
+      <a th:if="${cita.estado == 'PROGRAMADA'}"
          th:href="@{/cancelar-cita/{id}(id=${cita.id})}">
         Cancelar
       </a>
