@@ -16,6 +16,14 @@ public class DoctorService {
     }
 
     public List<Doctor> listarDoctores() {
-        return doctorRepository.obtenerTodos();
+        return doctorRepository.findAll();
+    }
+
+    public Doctor buscarPorId(Long id) {
+        return doctorRepository.findById(id).orElse(null);
+    }
+
+    public Doctor guardarDoctor(Doctor doctor) {
+        return doctorRepository.save(doctor);
     }
 }
