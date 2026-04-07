@@ -1,20 +1,20 @@
-INSERT INTO pacientes (nombre, telefono)
+INSERT INTO PACIENTES (NOMBRE, TELEFONO)
 VALUES ('Ana Perez', '8888-1111');
 
-INSERT INTO pacientes (nombre, telefono)
+INSERT INTO PACIENTES (NOMBRE, TELEFONO)
 VALUES ('Luis Gomez', '8888-2222');
 
-INSERT INTO doctores (nombre, especialidad)
+INSERT INTO DOCTORES (NOMBRE, ESPECIALIDAD)
 VALUES ('Dr. Ramirez', 'Medicina General');
 
-INSERT INTO doctores (nombre, especialidad)
+INSERT INTO DOCTORES (NOMBRE, ESPECIALIDAD)
 VALUES ('Dra. Lopez', 'Pediatria');
 
-INSERT INTO doctores (nombre, especialidad)
+INSERT INTO DOCTORES (NOMBRE, ESPECIALIDAD)
 VALUES ('Dr. Fernandez', 'Cardiologia');
 
-INSERT INTO citas (paciente_id, doctor_id, fecha, estado)
+INSERT INTO CITAS (PACIENTE_ID, DOCTOR_ID, FECHA, ESTADO)
 VALUES (1, 1, '2026-04-10', 'PROGRAMADA');
 
-INSERT INTO citas (paciente_id, doctor_id, fecha, estado)
+INSERT INTO CITAS (PACIENTE_ID, DOCTOR_ID, FECHA, ESTADO)
 VALUES (2, 2, '2026-04-11', 'PROGRAMADA');

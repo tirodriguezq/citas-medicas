@@ -6,16 +6,16 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
 
-@Table("citas")
+@Table("CITAS")
 public class Cita {
 
     @Id
     private Long id;
 
-    @Column("paciente_id")
+    @Column("PACIENTE_ID")
     private Long pacienteId;
 
-    @Column("doctor_id")
+    @Column("DOCTOR_ID")
     private Long doctorId;
 
     private LocalDate fecha;

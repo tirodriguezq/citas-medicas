@@ -3,7 +3,7 @@ package com.example.citasmedicas.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("pacientes")
+@Table("PACIENTES")
 public class Paciente {
 
     @Id
