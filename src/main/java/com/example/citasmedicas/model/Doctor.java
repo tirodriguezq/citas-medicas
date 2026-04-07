@@ -3,21 +3,21 @@ package com.example.citasmedicas.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("pacientes")
-public class Paciente {
+@Table("doctores")
+public class Doctor {
 
     @Id
     private Long id;
     private String nombre;
-    private String telefono;
+    private String especialidad;
 
-    public Paciente() {
+    public Doctor() {
     }
 
-    public Paciente(Long id, String nombre, String telefono) {
+    public Doctor(Long id, String nombre, String especialidad) {
         this.id = id;
         this.nombre = nombre;
-        this.telefono = telefono;
+        this.especialidad = especialidad;
     }
 
     public Long getId() {
@@ -28,8 +28,8 @@ public class Paciente {
         return nombre;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getEspecialidad() {
+        return especialidad;
     }
 
     public void setId(Long id) {
@@ -40,7 +40,7 @@ public class Paciente {
         this.nombre = nombre;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 }

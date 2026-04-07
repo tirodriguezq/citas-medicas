@@ -1,29 +1,9 @@
-package com.example.citasmedicas.service;
+package com.example.citasmedicas.repository;
 
 import com.example.citasmedicas.model.Doctor;
-import com.example.citasmedicas.repository.DoctorRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-@Service
-public class DoctorService {
-
-    private final DoctorRepository doctorRepository;
-
-    public DoctorService(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
-    }
-
-    public List<Doctor> listarDoctores() {
-        return doctorRepository.findAll();
-    }
-
-    public Doctor buscarPorId(Long id) {
-        return doctorRepository.findById(id).orElse(null);
-    }
-
-    public Doctor guardarDoctor(Doctor doctor) {
-        return doctorRepository.save(doctor);
-    }
+@Repository
+public interface DoctorRepository extends ListCrudRepository<Doctor, Long> {
 }
