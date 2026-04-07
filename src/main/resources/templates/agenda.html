@@ -33,8 +33,8 @@
   <tbody>
   <tr th:each="cita : ${citas}">
     <td th:text="${cita.id}"></td>
-    <td th:text="${cita.nombrePaciente}"></td>
-    <td th:text="${cita.doctor}"></td>
+    <td th:text="${cita.pacienteId}"></td>
+    <td th:text="${cita.doctorId}"></td>
     <td th:text="${cita.fecha}"></td>
     <td th:text="${cita.estado}"></td>
   </tr>
