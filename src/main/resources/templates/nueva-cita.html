@@ -11,14 +11,20 @@
 <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 
 <form action="/guardar-cita" method="post" th:object="${cita}">
-    <label>Nombre del paciente:</label><br>
-    <input type="text" th:field="*{nombrePaciente}"><br><br>
+    <label>Paciente:</label><br>
+    <select th:field="*{pacienteId}">
+        <option value="">Seleccione un paciente</option>
+        <option th:each="paciente : ${pacientes}"
+                th:value="${paciente.id}"
+                th:text="${paciente.nombre + ' - ' + paciente.telefono}">
+        </option>
+    </select><br><br>
 
     <label>Doctor:</label><br>
-    <select th:field="*{doctor}">
+    <select th:field="*{doctorId}">
         <option value="">Seleccione un doctor</option>
         <option th:each="doctor : ${doctores}"
-                th:value="${doctor.nombre}"
+                th:value="${doctor.id}"
                 th:text="${doctor.nombre + ' - ' + doctor.especialidad}">
         </option>
     </select><br><br>
