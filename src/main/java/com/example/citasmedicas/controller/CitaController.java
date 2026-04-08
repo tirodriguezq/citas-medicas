@@ -1,9 +1,12 @@
 package com.example.citasmedicas.controller;
 
 import com.example.citasmedicas.model.Cita;
+import com.example.citasmedicas.model.Doctor;
+import com.example.citasmedicas.model.Paciente;
 import com.example.citasmedicas.service.CitaService;
 import com.example.citasmedicas.service.DoctorService;
 import com.example.citasmedicas.service.PacienteService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class CitaController {
@@ -28,7 +33,7 @@ public class CitaController {
     }
 
     @GetMapping("/citas")
-    public String listarCitas(Model model, org.springframework.security.core.Authentication authentication) {
+    public String listarCitas(Model model, Authentication authentication) {
         model.addAttribute("citas", citaService.listarCitas());
 
         boolean esAdmin = authentication.getAuthorities().stream()
@@ -37,6 +42,9 @@ public class CitaController {
         model.addAttribute("esAdmin", esAdmin);
         model.addAttribute("usuario", authentication.getName());
         model.addAttribute("roles", authentication.getAuthorities());
+
+        model.addAttribute("pacientesMap", construirMapaPacientes());
+        model.addAttribute("doctoresMap", construirMapaDoctores());
 
         return "citas";
     }
@@ -87,6 +95,9 @@ public class CitaController {
 
         model.addAttribute("fechaSeleccionada", fechaConsulta);
         model.addAttribute("citas", citaService.agendaDelDia(fechaConsulta));
+        model.addAttribute("pacientesMap", construirMapaPacientes());
+        model.addAttribute("doctoresMap", construirMapaDoctores());
+
         return "agenda";
     }
 
@@ -105,7 +116,25 @@ public class CitaController {
         model.addAttribute("fechaInicio", inicioSemana);
         model.addAttribute("fechaFin", finSemana);
         model.addAttribute("citas", citaService.agendaDeLaSemana(inicioSemana));
+        model.addAttribute("pacientesMap", construirMapaPacientes());
+        model.addAttribute("doctoresMap", construirMapaDoctores());
 
         return "agenda-semanal";
+    }
+
+    private Map<Long, String> construirMapaPacientes() {
+        Map<Long, String> pacientesMap = new HashMap<>();
+        for (Paciente paciente : pacienteService.listarPacientes()) {
+            pacientesMap.put(paciente.getId(), paciente.getNombre());
+        }
+        return pacientesMap;
+    }
+
+    private Map<Long, String> construirMapaDoctores() {
+        Map<Long, String> doctoresMap = new HashMap<>();
+        for (Doctor doctor : doctorService.listarDoctores()) {
+            doctoresMap.put(doctor.getId(), doctor.getNombre());
+        }
+        return doctoresMap;
     }
 }
