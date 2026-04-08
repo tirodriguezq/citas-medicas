@@ -10,7 +10,9 @@
 
 <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 
-<form action="/guardar-cita" method="post" th:object="${cita}">
+<form th:action="@{/guardar-cita}" method="post" th:object="${cita}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
     <label>Paciente:</label><br>
     <select th:field="*{pacienteId}">
         <option value="">Seleccione un paciente</option>

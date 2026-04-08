@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/citas", false)
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/citas")
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/graphql"))
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()));
