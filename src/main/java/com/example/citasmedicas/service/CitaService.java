@@ -48,6 +48,18 @@ public class CitaService {
         }
     }
 
+    public Cita cambiarEstadoGraphQL(Long id, String nuevoEstado) {
+        Cita cita = citaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cita no encontrada"));
+
+        if (nuevoEstado == null || nuevoEstado.isBlank()) {
+            throw new IllegalArgumentException("El estado es obligatorio.");
+        }
+
+        cita.setEstado(nuevoEstado.toUpperCase());
+        return citaRepository.save(cita);
+    }
+
     public List<Cita> agendaDelDia(LocalDate fecha) {
         return citaRepository.findByFecha(fecha);
     }

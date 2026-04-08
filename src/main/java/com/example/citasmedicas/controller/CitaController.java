@@ -28,8 +28,16 @@ public class CitaController {
     }
 
     @GetMapping("/citas")
-    public String listarCitas(Model model) {
+    public String listarCitas(Model model, org.springframework.security.core.Authentication authentication) {
         model.addAttribute("citas", citaService.listarCitas());
+
+        boolean esAdmin = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        model.addAttribute("esAdmin", esAdmin);
+        model.addAttribute("usuario", authentication.getName());
+        model.addAttribute("roles", authentication.getAuthorities());
+
         return "citas";
     }
 

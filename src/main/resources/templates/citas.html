@@ -8,11 +8,21 @@
 
 <h1>Lista de Citas Médicas</h1>
 
+<p>
+  Usuario: <span th:text="${usuario}"></span>
+</p>
+
+<p>
+  Roles: <span th:text="${roles}"></span>
+</p>
+
 <a href="/nueva-cita">Registrar nueva cita</a>
 <br>
 <a href="/agenda">Ver agenda del día</a>
 <br>
 <a href="/agenda-semanal">Ver agenda semanal</a>
+<br>
+<a href="/logout">Cerrar sesión</a>
 
 <br><br>
 
@@ -35,18 +45,20 @@
     <td th:text="${cita.doctorId}"></td>
     <td th:text="${cita.fecha}"></td>
     <td th:text="${cita.estado}"></td>
+
     <td>
-      <a th:if="${cita.estado == 'PROGRAMADA'}"
-         th:href="@{/cambiar-estado/{id}(id=${cita.id})}">
-        Atender
-      </a>
+      <span th:if="${esAdmin}">
+        <span th:if="${cita.estado == 'PROGRAMADA'}">
+          <a th:href="@{/cambiar-estado/{id}(id=${cita.id})}">Atender</a>
+          |
+          <a th:href="@{/cancelar-cita/{id}(id=${cita.id})}">Cancelar</a>
+        </span>
+        <span th:if="${cita.estado != 'PROGRAMADA'}">Sin acciones</span>
+      </span>
 
-      <span th:if="${cita.estado == 'PROGRAMADA'}"> | </span>
-
-      <a th:if="${cita.estado == 'PROGRAMADA'}"
-         th:href="@{/cancelar-cita/{id}(id=${cita.id})}">
-        Cancelar
-      </a>
+      <span th:unless="${esAdmin}">
+        Sin permisos
+      </span>
     </td>
   </tr>
   </tbody>

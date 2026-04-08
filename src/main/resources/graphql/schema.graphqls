@@ -1,0 +1,16 @@
+type Cita {
+    id: ID
+    pacienteId: ID
+    doctorId: ID
+    fecha: String
+    estado: String
+}
+
+type Query {
+    citas: [Cita]
+    citaPorId(id: ID!): Cita
+}
+
+type Mutation {
+    cambiarEstadoCita(id: ID!, estado: String!): Cita
+}
